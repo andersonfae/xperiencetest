@@ -4,6 +4,9 @@ import { Request } from 'express';
 import { Repository } from 'typeorm';
 import { Admin } from './admin.entity';
 import { AdminService } from './admin.service';
+import { AtualizaUsuarioDTO } from './dto/AtualizaUsuario.dto';
+import { CriaUsuarioDTO } from './dto/CriaUsuario.dto';
+import { ListaUsuarioDTO } from './dto/ListaUsuario.dto';
 
 @Controller('admin')
 export class AdminController {
@@ -35,5 +38,16 @@ export class AdminController {
   @Delete(':id')
   async remove(@Param('id') id): Promise<void> {
     await this.adminRepository.remove(id);
+  }
+
+  @Put('/:id')
+  async atualizaUsuario(
+    @Param('id') string,
+    @Body() novosDados: AtualizaUsuarioDTO,
+  ) {
+    const usuarioAtualizado = await this.adminRepository.atualiza(
+      id,
+      novosDados,
+    );
   }
 }

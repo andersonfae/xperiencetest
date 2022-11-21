@@ -5,6 +5,7 @@ import {
   UpdateDateColumn,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { EmailEhUnico } from './validacao/email-eh-unico.validator';
 
 @Entity()
 export class Admin {
@@ -15,6 +16,7 @@ export class Admin {
   name: string;
 
   @Column()
+  @EmailEhUnico({ message: 'Já existe um usuário com este e-mail' })
   email: string;
 
   @Column()
